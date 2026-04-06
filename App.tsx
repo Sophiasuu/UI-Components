@@ -6,9 +6,10 @@ import { InfoCard } from './src/components/InfoCard';
 import { PrimaryButton } from './src/components/PrimaryButton';
 import { ComponentGalleryScreen } from './src/screens/ComponentGalleryScreen';
 import { YinYangScreen } from './src/screens/YinYangScreen';
+import { ConstellationScreen } from './src/screens/ConstellationScreen';
 import { colors, radius, spacing, typography } from './src/theme/tokens';
 
-type RouteKey = 'home' | 'gallery' | 'buttons' | 'cards' | 'yin-yang';
+type RouteKey = 'home' | 'gallery' | 'buttons' | 'cards' | 'yin-yang' | 'constellations';
 
 const routes: { key: RouteKey; label: string; description: string }[] = [
   {
@@ -30,6 +31,11 @@ const routes: { key: RouteKey; label: string; description: string }[] = [
     key: 'yin-yang',
     label: 'Yin-Yang Meditation',
     description: 'A contemplative, animated yin-yang composition for mobile and web.',
+  },
+  {
+    key: 'constellations',
+    label: 'Constellation Splash',
+    description: 'Two zodiac constellations revealed in sequence — a Western astrology motif.',
   },
 ];
 
@@ -106,6 +112,7 @@ export default function App() {
       ) : null}
 
       {currentRoute === 'yin-yang' ? <YinYangScreen /> : null}
+      {currentRoute === 'constellations' ? <ConstellationScreen /> : null}
     </SafeAreaView>
   );
 }

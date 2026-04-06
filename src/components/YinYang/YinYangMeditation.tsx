@@ -101,29 +101,21 @@ function YinYangMeditation({
     return { d: yinHalfPathOnly(center, center, r, shift) };
   });
 
-  // 🎯 YIN — just orbit, no rotation
+  // 🎯 YIN — slides right, then closes gap
   const yinStyle = useAnimatedStyle(() => {
-    const rf = motion.orbitRadiusFactor.value;
-    const angle = motion.orbitAngle.value;
-
-    const tx = Math.cos(angle) * orbitDistance * rf;
-    const ty = Math.sin(angle) * orbitDistance * rf;
+    const gap = orbitDistance * motion.orbitRadiusFactor.value;
 
     return {
-      transform: [{ translateX: tx }, { translateY: ty }],
+      transform: [{ translateX: gap }],
     };
   });
 
-  // 🎯 YANG — opposite side, always 180°
+  // 🎯 YANG — slides left, then closes gap
   const yangStyle = useAnimatedStyle(() => {
-    const rf = motion.orbitRadiusFactor.value;
-    const angle = motion.orbitAngle.value;
-
-    const tx = Math.cos(angle + Math.PI) * orbitDistance * rf;
-    const ty = Math.sin(angle + Math.PI) * orbitDistance * rf;
+    const gap = orbitDistance * motion.orbitRadiusFactor.value;
 
     return {
-      transform: [{ translateX: tx }, { translateY: ty }, { rotateZ: `${Math.PI}rad` }],
+      transform: [{ translateX: -gap }, { rotateZ: `${Math.PI}rad` }],
     };
   });
 
