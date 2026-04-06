@@ -1,5 +1,5 @@
 import { memo, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import Animated, {
   Easing,
   interpolate,
@@ -12,7 +12,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import Svg, { Path, Circle, Defs, LinearGradient, Stop, G } from 'react-native-svg';
+import Svg, { Path, Circle, Defs, LinearGradient, RadialGradient, Stop, G } from 'react-native-svg';
 
 const AnimatedG = Animated.createAnimatedComponent(G);
 const AnimatedPath = Animated.createAnimatedComponent(Path);
@@ -84,7 +84,7 @@ function LotusBloom({
   size = 300,
   backgroundColor = '#F7F7F5',
   showMessage = true,
-  message = 'Within the mud, the lotus blooms.',
+  message = 'Preparing your Vedic birth chart…',
 }: Props) {
   const bloom = useSharedValue(0);
   const breathe = useSharedValue(0);
@@ -133,23 +133,30 @@ function LotusBloom({
       <Animated.View style={[{ width: size, height: size }, breatheStyle]}>
         <Svg width={size} height={size} viewBox="0 0 200 210">
           <Defs>
+            <RadialGradient id="aura">
+              <Stop offset="0%" stopColor="#8C7AAE" stopOpacity="0.08" />
+              <Stop offset="100%" stopColor="#8C7AAE" stopOpacity="0" />
+            </RadialGradient>
             <LinearGradient id="gC" x1="0" y1="1" x2="0" y2="0">
-              <Stop offset="0%" stopColor="#FAE8E4" />
-              <Stop offset="100%" stopColor="#E09CA6" />
+              <Stop offset="0%" stopColor="#E8E6E3" />
+              <Stop offset="100%" stopColor="#A8A4A0" />
             </LinearGradient>
             <LinearGradient id="gI" x1="0" y1="1" x2="0" y2="0">
-              <Stop offset="0%" stopColor="#F2D4CE" />
-              <Stop offset="100%" stopColor="#D08490" />
+              <Stop offset="0%" stopColor="#D8D5D2" />
+              <Stop offset="100%" stopColor="#908C88" />
             </LinearGradient>
             <LinearGradient id="gO" x1="0" y1="1" x2="0" y2="0">
-              <Stop offset="0%" stopColor="#EACAC2" />
-              <Stop offset="100%" stopColor="#BE6878" />
+              <Stop offset="0%" stopColor="#CCCAC7" />
+              <Stop offset="100%" stopColor="#787572" />
             </LinearGradient>
             <LinearGradient id="gStem" x1="0" y1="0" x2="0" y2="1">
-              <Stop offset="0%" stopColor="#A8B098" />
-              <Stop offset="100%" stopColor="#8A9478" />
+              <Stop offset="0%" stopColor="#B0ADA8" />
+              <Stop offset="100%" stopColor="#8A8784" />
             </LinearGradient>
           </Defs>
+
+          {/* Aura glow */}
+          <Circle cx={CX} cy={CY - 20} r={80} fill="url(#aura)" />
 
           {/* Stem */}
           <AnimatedPath
@@ -213,8 +220,10 @@ const PetalShape = memo(function PetalShape({
       <Path
         d={def.d}
         fill={`url(#${def.grad})`}
-        stroke="rgba(160,100,110,0.12)"
-        strokeWidth={0.4}
+        stroke="rgba(46,42,39,0.25)"
+        strokeWidth={0.7}
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </AnimatedG>
   );
@@ -236,7 +245,7 @@ const SeedDot = memo(function SeedDot({
     return { opacity: t, r: 2 * t };
   });
 
-  return <AnimatedCircle cx={cx} cy={cy} r={0} fill="#D4A878" animatedProps={animProps} />;
+  return <AnimatedCircle cx={cx} cy={cy} r={0} fill="#9A9692" animatedProps={animProps} />;
 });
 
 /* ──────── styles ──────── */
@@ -246,13 +255,19 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 32,
+    padding: 40,
+    gap: 20,
   },
   message: {
-    fontFamily: 'Georgia',
-    fontSize: 16,
-    color: '#2E2A27',
-    letterSpacing: 0.5,
+    fontSize: 24,
+    lineHeight: 40,
+    textAlign: 'center',
+    color: '#3C3936',
+    letterSpacing: 0.6,
+    fontFamily: Platform.select({
+      web: '"Cormorant Garamond", serif',
+      default: 'serif',
+    }),
     opacity: 0,
   },
 });

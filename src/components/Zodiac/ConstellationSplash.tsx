@@ -225,9 +225,8 @@ const styles = StyleSheet.create({
     color: '#3C3936',
     letterSpacing: 0.6,
     fontFamily: Platform.select({
-      ios: 'Georgia',
-      android: 'serif',
-      default: 'Georgia, serif',
+      web: '"Cormorant Garamond", serif',
+      default: 'serif',
     }),
   },
 });

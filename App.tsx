@@ -1,47 +1,73 @@
 import 'react-native-reanimated';
 import { StatusBar } from 'expo-status-bar';
 import { useMemo, useState } from 'react';
-import { Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Platform, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { InfoCard } from './src/components/InfoCard';
 import { PrimaryButton } from './src/components/PrimaryButton';
 import { ComponentGalleryScreen } from './src/screens/ComponentGalleryScreen';
 import { YinYangScreen } from './src/screens/YinYangScreen';
 import { ConstellationScreen } from './src/screens/ConstellationScreen';
 import { VedicScreen } from './src/screens/VedicScreen';
+import { NumerologyScreen } from './src/screens/NumerologyScreen';
 import { colors, radius, spacing, typography } from './src/theme/tokens';
 
-type RouteKey = 'home' | 'gallery' | 'buttons' | 'cards' | 'yin-yang' | 'constellations' | 'vedic';
+type RouteKey = 'home' | 'gallery' | 'buttons' | 'cards' | 'yin-yang' | 'constellations' | 'vedic' | 'numerology';
 
-const routes: { key: RouteKey; label: string; description: string }[] = [
+type RouteItem = { key: RouteKey; label: string; description: string };
+
+type Section = {
+  title: string;
+  subtitle: string;
+  items: RouteItem[];
+};
+
+const sections: Section[] = [
   {
-    key: 'gallery',
-    label: 'Full Gallery',
-    description: 'Browse all current component previews in one page.',
+    title: 'Splash & Animation',
+    subtitle: 'Immersive entry experiences',
+    items: [
+      {
+        key: 'yin-yang',
+        label: 'Yin-Yang Meditation',
+        description: 'Contemplative animated composition.',
+      },
+      {
+        key: 'constellations',
+        label: 'Constellation Splash',
+        description: 'Western astrology star reveal.',
+      },
+      {
+        key: 'vedic',
+        label: 'Vedic Lotus',
+        description: 'Tiered lotus bloom for Vedic astrology.',
+      },
+      {
+        key: 'numerology',
+        label: 'Numerology Mesh',
+        description: 'Alchemical life path number reveal.',
+      },
+    ],
   },
   {
-    key: 'buttons',
-    label: 'Buttons',
-    description: 'Focus only on button states and interactions.',
-  },
-  {
-    key: 'cards',
-    label: 'Cards',
-    description: 'Review card layouts and content patterns.',
-  },
-  {
-    key: 'yin-yang',
-    label: 'Yin-Yang Meditation',
-    description: 'A contemplative, animated yin-yang composition for mobile and web.',
-  },
-  {
-    key: 'constellations',
-    label: 'Constellation Splash',
-    description: 'Two zodiac constellations revealed in sequence — a Western astrology motif.',
-  },
-  {
-    key: 'vedic',
-    label: 'Vedic Lotus',
-    description: 'A lotus flower blooming — outline drawing animation for Vedic astrology.',
+    title: 'UI Primitives',
+    subtitle: 'Building blocks & patterns',
+    items: [
+      {
+        key: 'buttons',
+        label: 'Buttons',
+        description: 'States, interactions, and disabled variants.',
+      },
+      {
+        key: 'cards',
+        label: 'Cards',
+        description: 'Content layout and action hierarchy.',
+      },
+      {
+        key: 'gallery',
+        label: 'Full Gallery',
+        description: 'Browse all component previews in one page.',
+      },
+    ],
   },
 ];
 
@@ -62,34 +88,41 @@ export default function App() {
       <StatusBar style="dark" />
 
       <View style={styles.topBar}>
-        <Text style={styles.brand}>UI Component Navigator</Text>
         {!showHome ? (
           <Pressable accessibilityRole="button" onPress={() => setCurrentRoute('home')} style={styles.backButton}>
-            <Text style={styles.backButtonLabel}>Back to Menu</Text>
+            <Text style={styles.backButtonLabel}>← Back</Text>
           </Pressable>
-        ) : null}
+        ) : <View />}
       </View>
 
       {showHome ? (
         <ScrollView contentContainerStyle={styles.menuContent}>
-          <InfoCard
-            title="Component Workspace"
-            description="Use this page as your navigation hub to open focused preview areas while building reusable UI parts."
-          />
-
-          <View style={styles.menuGrid}>
-            {routes.map((route) => (
-              <Pressable
-                key={route.key}
-                accessibilityRole="button"
-                onPress={() => setCurrentRoute(route.key)}
-                style={({ pressed }) => [styles.menuTile, pressed ? styles.menuTilePressed : null]}
-              >
-                <Text style={styles.menuTitle}>{route.label}</Text>
-                <Text style={styles.menuDescription}>{route.description}</Text>
-              </Pressable>
-            ))}
+          <View style={styles.hero}>
+            <Text style={styles.heroTitle}>UI Components</Text>
+            <Text style={styles.heroSub}>Design workspace for component exploration</Text>
           </View>
+
+          {sections.map((section) => (
+            <View key={section.title} style={styles.section}>
+              <View style={styles.sectionHeader}>
+                <Text style={styles.sectionTitle}>{section.title}</Text>
+                <Text style={styles.sectionSub}>{section.subtitle}</Text>
+              </View>
+              <View style={styles.sectionGrid}>
+                {section.items.map((route) => (
+                  <Pressable
+                    key={route.key}
+                    accessibilityRole="button"
+                    onPress={() => setCurrentRoute(route.key)}
+                    style={({ pressed }) => [styles.menuTile, pressed && styles.menuTilePressed]}
+                  >
+                    <Text style={styles.menuTitle}>{route.label}</Text>
+                    <Text style={styles.menuDescription}>{route.description}</Text>
+                  </Pressable>
+                ))}
+              </View>
+            </View>
+          ))}
         </ScrollView>
       ) : null}
 
@@ -120,72 +153,101 @@ export default function App() {
       {currentRoute === 'yin-yang' ? <YinYangScreen /> : null}
       {currentRoute === 'constellations' ? <ConstellationScreen /> : null}
       {currentRoute === 'vedic' ? <VedicScreen /> : null}
+      {currentRoute === 'numerology' ? <NumerologyScreen /> : null}
     </SafeAreaView>
   );
 }
 
+const serifFont = Platform.select({
+  web: '"Cormorant Garamond", serif',
+  default: 'serif',
+});
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.canvas,
+    backgroundColor: '#F7F7F5',
   },
   topBar: {
     paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.md,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
-    backgroundColor: colors.surface,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: spacing.md,
-  },
-  brand: {
-    color: colors.ink,
-    fontSize: typography.subtitle,
-    fontWeight: '700',
-    flexShrink: 1,
+    paddingVertical: spacing.sm,
+    minHeight: 44,
+    justifyContent: 'center',
   },
   backButton: {
-    backgroundColor: '#F1ECE3',
-    borderWidth: 1,
-    borderColor: colors.border,
-    borderRadius: radius.full,
+    alignSelf: 'flex-start',
     paddingVertical: spacing.xs,
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.sm,
   },
   backButtonLabel: {
-    color: colors.ink,
-    fontSize: typography.caption,
-    fontWeight: '700',
+    color: colors.mutedInk,
+    fontSize: typography.body,
+    fontWeight: '500',
   },
   menuContent: {
-    padding: spacing.lg,
-    gap: spacing.lg,
+    paddingHorizontal: spacing.lg,
+    paddingBottom: spacing.xl,
+    gap: spacing.xl,
   },
-  menuGrid: {
+  hero: {
+    paddingTop: spacing.xl,
+    paddingBottom: spacing.md,
+    gap: 6,
+  },
+  heroTitle: {
+    fontSize: 28,
+    fontWeight: '300',
+    color: '#2E2A27',
+    letterSpacing: 0.4,
+    fontFamily: serifFont,
+  },
+  heroSub: {
+    fontSize: typography.body,
+    color: colors.mutedInk,
+    letterSpacing: 0.2,
+  },
+  section: {
     gap: spacing.md,
   },
-  menuTile: {
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.border,
-    borderRadius: radius.md,
-    padding: spacing.md,
+  sectionHeader: {
+    gap: 2,
+  },
+  sectionTitle: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: colors.mutedInk,
+    letterSpacing: 1.2,
+    textTransform: 'uppercase',
+  },
+  sectionSub: {
+    fontSize: typography.caption,
+    color: 'rgba(94,87,79,0.6)',
+  },
+  sectionGrid: {
     gap: spacing.sm,
   },
+  menuTile: {
+    backgroundColor: '#FFFDF8',
+    borderWidth: 1,
+    borderColor: '#E8E5E0',
+    borderRadius: radius.md,
+    paddingVertical: 14,
+    paddingHorizontal: spacing.md,
+    gap: 4,
+  },
   menuTilePressed: {
-    opacity: 0.8,
+    backgroundColor: '#F5F2ED',
   },
   menuTitle: {
-    color: colors.ink,
-    fontSize: typography.subtitle,
-    fontWeight: '700',
+    color: '#2E2A27',
+    fontSize: typography.body,
+    fontWeight: '600',
+    letterSpacing: 0.15,
   },
   menuDescription: {
     color: colors.mutedInk,
-    fontSize: typography.body,
-    lineHeight: 24,
+    fontSize: typography.caption,
+    lineHeight: 18,
   },
   previewContent: {
     padding: spacing.lg,
