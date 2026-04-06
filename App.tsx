@@ -7,9 +7,10 @@ import { PrimaryButton } from './src/components/PrimaryButton';
 import { ComponentGalleryScreen } from './src/screens/ComponentGalleryScreen';
 import { YinYangScreen } from './src/screens/YinYangScreen';
 import { ConstellationScreen } from './src/screens/ConstellationScreen';
+import { VedicScreen } from './src/screens/VedicScreen';
 import { colors, radius, spacing, typography } from './src/theme/tokens';
 
-type RouteKey = 'home' | 'gallery' | 'buttons' | 'cards' | 'yin-yang' | 'constellations';
+type RouteKey = 'home' | 'gallery' | 'buttons' | 'cards' | 'yin-yang' | 'constellations' | 'vedic';
 
 const routes: { key: RouteKey; label: string; description: string }[] = [
   {
@@ -36,6 +37,11 @@ const routes: { key: RouteKey; label: string; description: string }[] = [
     key: 'constellations',
     label: 'Constellation Splash',
     description: 'Two zodiac constellations revealed in sequence — a Western astrology motif.',
+  },
+  {
+    key: 'vedic',
+    label: 'Vedic Lotus',
+    description: 'A lotus flower blooming — outline drawing animation for Vedic astrology.',
   },
 ];
 
@@ -113,6 +119,7 @@ export default function App() {
 
       {currentRoute === 'yin-yang' ? <YinYangScreen /> : null}
       {currentRoute === 'constellations' ? <ConstellationScreen /> : null}
+      {currentRoute === 'vedic' ? <VedicScreen /> : null}
     </SafeAreaView>
   );
 }

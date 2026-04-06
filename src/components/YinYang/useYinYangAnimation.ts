@@ -5,7 +5,6 @@ import {
   interpolate,
   useDerivedValue,
   useSharedValue,
-  withDelay,
   withRepeat,
   withSequence,
   withTiming,
@@ -39,22 +38,16 @@ export function useYinYangAnimation({
     breathing.value = 0;
 
     /** 🌿 MAIN SEQUENCE (slow start, strong finish) */
-    sequenceProgress.value = withDelay(
-      600,
-      withTiming(1, {
-        duration: sequenceDuration,
-        easing: Easing.bezier(0.22, 1, 0.36, 1), // smooth, premium easing
-      })
-    );
+    sequenceProgress.value = withTiming(1, {
+      duration: sequenceDuration,
+      easing: Easing.bezier(0.22, 1, 0.36, 1),
+    });
 
-    /** 🔁 ORBIT MOTION */
-    orbitAngle.value = withDelay(
-      600,
-      withTiming(Math.PI * 2, {
-        duration: sequenceDuration,
-        easing: Easing.bezier(0.25, 0.1, 0.25, 1),
-      })
-    );
+    /** 🔁 ORBIT MOTION (slows slightly near merge) */
+    orbitAngle.value = withTiming(Math.PI * 4.2, {
+      duration: sequenceDuration,
+      easing: Easing.linear,
+    });
 
     /** 🌬️ BREATHING */
     breathing.value = withRepeat(
@@ -105,11 +98,11 @@ export function useYinYangAnimation({
   const orbitRadiusFactor = useDerivedValue(() => {
     const p = sequenceProgress.value;
 
-    // smooth ease from 1 → 0 over the full sequence
+    // hold orbit longer, then accelerate inward
     const merge = interpolate(
       p,
-      [0.0, 0.3, 1.0],
-      [0, 0.1, 1],
+      [0.0, 0.55, 0.75, 1.0],
+      [0, 0, 0.4, 1],
       Extrapolation.CLAMP
     );
 
