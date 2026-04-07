@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { InfoCard } from '../components/InfoCard';
 import { PrimaryButton } from '../components/PrimaryButton';
+import { PromoSection } from '../components/PromoSection';
 import SplooshBounce from '../components/Surface/SplooshBounce';
 import { colors, radius, spacing, typography } from '../theme/tokens';
 
@@ -51,6 +52,11 @@ export function ComponentGalleryScreen() {
           description="A simple card component for previews. Treat each section in this project as a mini catalog entry for a UI pattern."
           footer={<PrimaryButton label="Card CTA" onPress={() => setClicks((v) => v + 1)} />}
         />
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Promo</Text>
+        <PromoSection />
       </View>
     </ScrollView>
   );

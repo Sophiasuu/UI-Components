@@ -14,9 +14,10 @@ import { TentacleScreen } from './src/screens/TentacleScreen';
 import { LumenOrbitScreen } from './src/screens/LumenOrbitScreen';
 import { SineRibbonScreen } from './src/screens/SineRibbonScreen';
 import { BreathPulseScreen } from './src/screens/BreathPulseScreen';
+import { OceanScreen } from './src/screens/OceanScreen';
 import { colors, radius, spacing, typography } from './src/theme/tokens';
 
-type RouteKey = 'home' | 'gallery' | 'buttons' | 'cards' | 'yin-yang' | 'constellations' | 'vedic' | 'numerology' | 'sploosh' | 'tentacle' | 'lumen-orbit' | 'sine-ribbon' | 'breath-pulse';
+type RouteKey = 'home' | 'gallery' | 'buttons' | 'cards' | 'yin-yang' | 'constellations' | 'vedic' | 'numerology' | 'sploosh' | 'tentacle' | 'lumen-orbit' | 'sine-ribbon' | 'breath-pulse' | 'ocean-personality';
 
 type RouteItem = { key: RouteKey; label: string; description: string };
 
@@ -75,6 +76,11 @@ const sections: Section[] = [
         key: 'breath-pulse',
         label: 'Breath Pulse',
         description: 'Concentric circles that expand and settle like breath.',
+      },
+      {
+        key: 'ocean-personality',
+        label: 'OCEAN Personality',
+        description: 'Deep-sea radar card with 6-scene cinematic reveal.',
       },
     ],
   },
@@ -155,6 +161,13 @@ function renderPanelThumbnail(routeKey: RouteKey) {
       return (
         <View style={styles.thumbCanvas}>
           <Image source={require('./src/assets/breathingpulse.png')} style={styles.thumbAssetImage} resizeMode="contain" />
+        </View>
+      );
+    case 'ocean-personality':
+      return (
+        <View style={[styles.thumbCanvas, { backgroundColor: '#010E1E' }]}>
+          <View style={styles.thumbOceanPentagon} />
+          <View style={styles.thumbOceanDot} />
         </View>
       );
     case 'buttons':
@@ -326,6 +339,7 @@ export default function App() {
       {currentRoute === 'lumen-orbit' ? <LumenOrbitScreen /> : null}
       {currentRoute === 'sine-ribbon' ? <SineRibbonScreen /> : null}
       {currentRoute === 'breath-pulse' ? <BreathPulseScreen /> : null}
+      {currentRoute === 'ocean-personality' ? <OceanScreen /> : null}
     </SafeAreaView>
   );
 }
@@ -697,6 +711,21 @@ const styles = StyleSheet.create({
     height: 16,
     borderRadius: 8,
     backgroundColor: '#2A453A',
+  },
+  thumbOceanPentagon: {
+    width: 48,
+    height: 48,
+    borderWidth: 1,
+    borderColor: 'rgba(133,183,235,0.45)',
+    borderRadius: 4,
+    transform: [{ rotate: '0deg' }],
+  },
+  thumbOceanDot: {
+    position: 'absolute',
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: '#85B7EB',
   },
   thumbButtonPrimary: {
     position: 'absolute',
