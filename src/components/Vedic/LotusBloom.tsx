@@ -82,7 +82,7 @@ type Props = {
 
 function LotusBloom({
   size = 300,
-  backgroundColor = '#F7F7F5',
+  backgroundColor = '#D9D9D9',
   showMessage = true,
   message = 'Preparing your Vedic birth chart…',
 }: Props) {

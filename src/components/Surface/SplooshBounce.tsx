@@ -207,7 +207,7 @@ function SplooshBounce({
   size = 320,
   ballColor = '#2E2A27',
   lineColor = 'rgba(46, 42, 39, 0.9)',
-  backgroundColor = '#F7F7F5',
+  backgroundColor = '#D9D9D9',
   showMessage = true,
   message = 'Impact turns liquid.',
 }: Props) {

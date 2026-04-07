@@ -73,7 +73,7 @@ function YinYangMeditation({
   size = 260,
   yinColor = '#2E2A27',
   yangColor = '#F2F1EC',
-  backgroundColor = '#F7F7F5',
+  backgroundColor = '#D9D9D9',
   glowColor = '#8C7AAE',
   showMessage = true,
   message = 'Silence gathers shape.',

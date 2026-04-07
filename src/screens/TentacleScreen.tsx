@@ -12,7 +12,7 @@ export function TentacleScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F7F7F5',
+    backgroundColor: '#D9D9D9',
     justifyContent: 'center',
   },
 });

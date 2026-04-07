@@ -16,7 +16,7 @@ type Props = {
 
 function LumenOrbit({
   size = 320,
-  backgroundColor = '#F7F7F5',
+  backgroundColor = '#D9D9D9',
   showMessage = true,
   message = 'Orbit finds calm.',
 }: Props) {

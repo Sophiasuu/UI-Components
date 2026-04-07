@@ -159,7 +159,7 @@ function buildTentacleGeometry(size: number, timeMs: number) {
 
 function GlowingTentacle({
   size = 340,
-  backgroundColor = '#F7F7F5',
+  backgroundColor = '#D9D9D9',
   glowColor = '#5CB8A5',
   coreColor = '#EFFFF8',
   showMessage = true,

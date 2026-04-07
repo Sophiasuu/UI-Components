@@ -58,7 +58,7 @@ function ConstellationSplash({
   starColor = '#2E2A27',
   lineColor = 'rgba(46, 42, 39, 0.3)',
   glowColor = 'rgba(140, 122, 174, 0.22)',
-  backgroundColor = '#F7F7F5',
+  backgroundColor = '#D9D9D9',
   showMessage = true,
   message = 'The stars remember.',
 }: Props) {

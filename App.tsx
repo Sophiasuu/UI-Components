@@ -338,7 +338,7 @@ const serifFont = Platform.select({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F7F7F5',
+    backgroundColor: '#D9D9D9',
   },
   topBar: {
     paddingHorizontal: spacing.lg,

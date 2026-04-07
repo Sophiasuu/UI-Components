@@ -50,7 +50,7 @@ function buildWavePath(width: number, height: number, phase: number) {
 
 function SineRibbon({
   size = 340,
-  backgroundColor = '#F7F7F5',
+  backgroundColor = '#D9D9D9',
   showMessage = true,
   message = 'Waves hold a line.',
 }: Props) {

@@ -94,7 +94,7 @@ type Props = {
 function NumerologyMesh({
   size = 300,
   birthDate = '11-05-1992',
-  backgroundColor = '#F7F7F5',
+  backgroundColor = '#D9D9D9',
   showMessage = true,
   message,
 }: Props) {
