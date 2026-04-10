@@ -188,15 +188,15 @@ const IntroHook = memo(function IntroHook() {
 
 /* ─── Intro: Pain / overwhelm ─── */
 const PAIN_OPTIONS = [
-  { text: 'Marketing?', x: -90, y: -70 },
-  { text: 'Medicine?', x: 60, y: -55 },
-  { text: 'Law?', x: -40, y: -15 },
-  { text: 'Engineering?', x: 75, y: 10 },
-  { text: 'Finance?', x: -85, y: 35 },
-  { text: 'Design?', x: 30, y: 55 },
-  { text: 'Teaching?', x: -55, y: 80 },
-  { text: 'Psychology?', x: 65, y: -25 },
-  { text: 'Data Science?', x: -20, y: 110 },
+  { text: '📣 Marketing?', x: -90, y: -70 },
+  { text: '🩺 Medicine?', x: 60, y: -55 },
+  { text: '⚖️ Law?', x: -40, y: -15 },
+  { text: '🛠️ Engineering?', x: 75, y: 10 },
+  { text: '💹 Finance?', x: -85, y: 35 },
+  { text: '🎨 Design?', x: 30, y: 55 },
+  { text: '🍎 Teaching?', x: -55, y: 80 },
+  { text: '🧠 Psychology?', x: 65, y: -25 },
+  { text: '📊 Data Science?', x: -20, y: 110 },
 ];
 const IntroPain = memo(function IntroPain({ master }: { master: Animated.SharedValue<number> }) {
   return (

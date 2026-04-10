@@ -15,9 +15,13 @@ import { LumenOrbitScreen } from './src/screens/LumenOrbitScreen';
 import { SineRibbonScreen } from './src/screens/SineRibbonScreen';
 import { BreathPulseScreen } from './src/screens/BreathPulseScreen';
 import { OceanScreen } from './src/screens/OceanScreen';
+import { DoveLetterScreen } from './src/screens/DoveLetterScreen';
+import { PrismActionScreen } from './src/screens/PrismActionScreen';
+import { HaloProgressScreen } from './src/screens/HaloProgressScreen';
+import { EchoStackScreen } from './src/screens/EchoStackScreen';
 import { colors, radius, spacing, typography } from './src/theme/tokens';
 
-type RouteKey = 'home' | 'gallery' | 'buttons' | 'cards' | 'yin-yang' | 'constellations' | 'vedic' | 'numerology' | 'sploosh' | 'tentacle' | 'lumen-orbit' | 'sine-ribbon' | 'breath-pulse' | 'ocean-personality';
+type RouteKey = 'home' | 'gallery' | 'buttons' | 'cards' | 'yin-yang' | 'constellations' | 'vedic' | 'numerology' | 'sploosh' | 'tentacle' | 'lumen-orbit' | 'sine-ribbon' | 'breath-pulse' | 'dove-letter' | 'ocean-personality' | 'prism-action' | 'halo-progress' | 'echo-stack';
 
 type RouteItem = { key: RouteKey; label: string; description: string };
 
@@ -78,9 +82,29 @@ const sections: Section[] = [
         description: 'Concentric circles that expand and settle like breath.',
       },
       {
+        key: 'dove-letter',
+        label: 'Dove Letter Splash',
+        description: 'A dove glides in to take a letter from an outstretched hand.',
+      },
+      {
         key: 'ocean-personality',
         label: 'OCEAN Personality',
         description: 'Deep-sea radar card with 6-scene cinematic reveal.',
+      },
+      {
+        key: 'prism-action',
+        label: 'Prism Action Button',
+        description: 'Shimmering cinematic call-to-action with bold contrast and motion.',
+      },
+      {
+        key: 'halo-progress',
+        label: 'Halo Progress Card',
+        description: 'Animated radial meter for confidence, progress, and readiness states.',
+      },
+      {
+        key: 'echo-stack',
+        label: 'Echo Stack Card',
+        description: 'Layered card stack with ambient floating depth.',
       },
     ],
   },
@@ -163,11 +187,42 @@ function renderPanelThumbnail(routeKey: RouteKey) {
           <Image source={require('./src/assets/breathingpulse.png')} style={styles.thumbAssetImage} resizeMode="contain" />
         </View>
       );
+    case 'dove-letter':
+      return (
+        <View style={[styles.thumbCanvas, { backgroundColor: '#F7F7F5' }]}>
+          <View style={styles.thumbDoveShape} />
+          <View style={styles.thumbEnvelopeShape} />
+          <View style={styles.thumbHandShape} />
+        </View>
+      );
     case 'ocean-personality':
       return (
         <View style={[styles.thumbCanvas, { backgroundColor: '#010E1E' }]}>
           <View style={styles.thumbOceanPentagon} />
           <View style={styles.thumbOceanDot} />
+        </View>
+      );
+    case 'prism-action':
+      return (
+        <View style={[styles.thumbCanvas, { backgroundColor: '#1A1430' }]}>
+          <View style={styles.thumbPrismBand} />
+          <View style={styles.thumbPrismShimmer} />
+        </View>
+      );
+    case 'halo-progress':
+      return (
+        <View style={styles.thumbCanvas}>
+          <View style={styles.thumbHaloRing}>
+            <View style={styles.thumbHaloCenter} />
+          </View>
+        </View>
+      );
+    case 'echo-stack':
+      return (
+        <View style={styles.thumbCanvas}>
+          <View style={styles.thumbEchoBack} />
+          <View style={styles.thumbEchoMid} />
+          <View style={styles.thumbEchoFront} />
         </View>
       );
     case 'buttons':
@@ -339,7 +394,11 @@ export default function App() {
       {currentRoute === 'lumen-orbit' ? <LumenOrbitScreen /> : null}
       {currentRoute === 'sine-ribbon' ? <SineRibbonScreen /> : null}
       {currentRoute === 'breath-pulse' ? <BreathPulseScreen /> : null}
+      {currentRoute === 'dove-letter' ? <DoveLetterScreen /> : null}
       {currentRoute === 'ocean-personality' ? <OceanScreen /> : null}
+      {currentRoute === 'prism-action' ? <PrismActionScreen /> : null}
+      {currentRoute === 'halo-progress' ? <HaloProgressScreen /> : null}
+      {currentRoute === 'echo-stack' ? <EchoStackScreen /> : null}
     </SafeAreaView>
   );
 }
@@ -474,6 +533,98 @@ const styles = StyleSheet.create({
   thumbAssetImage: {
     width: '100%',
     height: '100%',
+  },
+  thumbDoveShape: {
+    position: 'absolute',
+    left: 22,
+    top: 36,
+    width: 66,
+    height: 36,
+    borderRadius: 18,
+    borderWidth: 2,
+    borderColor: '#2E2A27',
+    backgroundColor: 'transparent',
+    transform: [{ rotate: '-12deg' }],
+  },
+  thumbEnvelopeShape: {
+    position: 'absolute',
+    left: 116,
+    top: 58,
+    width: 38,
+    height: 24,
+    borderWidth: 2,
+    borderColor: '#2E2A27',
+    backgroundColor: '#F2F1EC',
+    transform: [{ rotate: '-12deg' }],
+  },
+  thumbHandShape: {
+    position: 'absolute',
+    right: 14,
+    bottom: 20,
+    width: 56,
+    height: 18,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+    borderWidth: 2,
+    borderColor: '#2E2A27',
+    backgroundColor: 'transparent',
+    transform: [{ rotate: '-26deg' }],
+  },
+  thumbPrismBand: {
+    width: 146,
+    height: 52,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(233, 215, 255, 0.5)',
+    backgroundColor: '#2E1E52',
+  },
+  thumbPrismShimmer: {
+    position: 'absolute',
+    width: 34,
+    height: 70,
+    backgroundColor: 'rgba(236, 217, 255, 0.3)',
+    transform: [{ rotate: '18deg' }, { translateX: 24 }],
+  },
+  thumbHaloRing: {
+    width: 68,
+    height: 68,
+    borderRadius: 34,
+    borderWidth: 8,
+    borderColor: '#49D5B7',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#EDF7F6',
+  },
+  thumbHaloCenter: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: '#D4ECE8',
+  },
+  thumbEchoBack: {
+    position: 'absolute',
+    width: 88,
+    height: 58,
+    borderRadius: 12,
+    backgroundColor: '#F1CDAE',
+    transform: [{ rotate: '10deg' }, { translateX: -10 }],
+  },
+  thumbEchoMid: {
+    position: 'absolute',
+    width: 88,
+    height: 58,
+    borderRadius: 12,
+    backgroundColor: '#E8B98F',
+    transform: [{ rotate: '-8deg' }, { translateX: 6 }],
+  },
+  thumbEchoFront: {
+    position: 'absolute',
+    width: 88,
+    height: 58,
+    borderRadius: 12,
+    backgroundColor: '#2C1E1A',
+    borderWidth: 1,
+    borderColor: '#4B312A',
   },
   thumbYinYangOuter: {
     width: 48,

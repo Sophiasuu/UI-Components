@@ -3,6 +3,9 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { InfoCard } from '../components/InfoCard';
 import { PrimaryButton } from '../components/PrimaryButton';
 import { PromoSection } from '../components/PromoSection';
+import { EchoStackCard } from '../components/Awesome/EchoStackCard';
+import { HaloProgressCard } from '../components/Awesome/HaloProgressCard';
+import { PrismActionButton } from '../components/Awesome/PrismActionButton';
 import SplooshBounce from '../components/Surface/SplooshBounce';
 import { colors, radius, spacing, typography } from '../theme/tokens';
 
@@ -58,6 +61,34 @@ export function ComponentGalleryScreen() {
         <Text style={styles.sectionTitle}>Promo</Text>
         <PromoSection />
       </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Super Awesome Pack</Text>
+        <Text style={styles.sectionIntro}>
+          A cinematic button, a live radial meter, and a floating layered card tuned for high-impact product moments.
+        </Text>
+
+        <PrismActionButton
+          label="Launch Stellar Flow"
+          caption="Tap to trigger"
+          onPress={() => setClicks((v) => v + 1)}
+          style={styles.prismButton}
+        />
+
+        <View style={styles.awesomeRow}>
+          <HaloProgressCard
+            value={68 + ((clicks * 7) % 24)}
+            title="Aura Readiness"
+            subtitle="Score reacts to interaction count so motion feels alive in the gallery."
+          />
+          <EchoStackCard
+            title="Echo Deck"
+            description="Layered depth that slowly drifts to add atmosphere without stealing focus."
+            tagA="Parallax"
+            tagB="Ambient"
+          />
+        </View>
+      </View>
     </ScrollView>
   );
 }
@@ -96,6 +127,12 @@ const styles = StyleSheet.create({
   section: {
     gap: spacing.sm,
   },
+  sectionIntro: {
+    fontSize: typography.body,
+    color: colors.mutedInk,
+    lineHeight: 23,
+    maxWidth: 760,
+  },
   sectionTitle: {
     color: colors.ink,
     fontSize: typography.subtitle,
@@ -132,5 +169,15 @@ const styles = StyleSheet.create({
   caption: {
     fontSize: typography.caption,
     color: colors.mutedInk,
+  },
+  prismButton: {
+    width: '100%',
+    maxWidth: 520,
+  },
+  awesomeRow: {
+    flexDirection: 'row',
+    gap: spacing.md,
+    flexWrap: 'wrap',
+    alignItems: 'stretch',
   },
 });
